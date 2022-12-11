@@ -129,9 +129,14 @@ void DefinitionIntroduction::process(Term *t) {
     if(gen->allArgumentsAreVariables() && gen->getDistinctVars() == gen->arity())
       continue;
 
+    // ignore introduced functions as they hinder subterm search
+    if(/* gen->is() && */ env.signature->getFunction(gen->functor())->termAlgebraCons()) {
+      continue;
+    }
+
     entry.term = gen;
-    entry.weight += t->weight();
-    if(entry.weight > env.options->functionDefinitionIntroduction()) {
+
+    if(++entry.count > env.options->functionDefinitionIntroduction()) {
       introduceDefinitionFor(entry.term);
       std::swap(entries[i], entries.top());
       entries.pop();

@@ -130,11 +130,11 @@ void DefinitionIntroduction::process(Term *t) {
       continue;
 
     // ignore term algebra for subterm efficiency
-    if(/* gen->is() && */ env.signature->getFunction(gen->functor())->termAlgebraCons()) {
+    if(env.signature->getFunction(gen->functor())->termAlgebraCons()) {
       continue;
     }
-    entry.term = gen;
 
+    entry.term = gen;
     if(++entry.count > env.options->functionDefinitionIntroduction()) {
       introduceDefinitionFor(entry.term);
       std::swap(entries[i], entries.top());

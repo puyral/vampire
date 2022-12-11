@@ -129,11 +129,10 @@ void DefinitionIntroduction::process(Term *t) {
     if(gen->allArgumentsAreVariables() && gen->getDistinctVars() == gen->arity())
       continue;
 
-    // ignore introduced functions as they hinder subterm search
+    // ignore term algebra for subterm efficiency
     if(/* gen->is() && */ env.signature->getFunction(gen->functor())->termAlgebraCons()) {
       continue;
     }
-
     entry.term = gen;
 
     if(++entry.count > env.options->functionDefinitionIntroduction()) {

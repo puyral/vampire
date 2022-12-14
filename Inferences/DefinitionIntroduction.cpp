@@ -130,12 +130,12 @@ void DefinitionIntroduction::process(Term *t) {
       continue;
 
     // only ground terms ?
-    // if (gen->getDistinctVars() != 0){
-    //   continue;
-    // }
+    if (gen->getDistinctVars() != 0){
+      continue;
+    }
 
     // only introduced terms ?
-    // if (env.signature->getFunction(gen->functor())->skolem() != 1 || gen->getDistinctVars() != 0){
+    // if (env.signature->getFunction(gen->functor())->skolem() != 1 /* || gen->getDistinctVars() != 0 */){
     //   continue;
     // }
 

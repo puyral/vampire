@@ -140,7 +140,7 @@ void DefinitionIntroduction::process(Term *t) {
     // }
 
     // ignore term algebra for subterm efficiency
-    if(env.signature->getFunction(gen->functor())->termAlgebraCons()) {
+    if(gen->isApplication() && env.signature->getFunction(gen->functor())->termAlgebraCons()) {
       continue;
     }
 

@@ -140,10 +140,10 @@ void DefinitionIntroduction::process(Term *t) {
     // }
 
     // ignore term algebra for subterm efficiency
-    if(gen->isApplication() && env.signature->getFunction(gen->functor())->termAlgebraCons()) {
+    if(/* gen->isApplication() && */ env.signature->getFunction(gen->functor())->termAlgebraCons()) {
       continue;
     }
-
+  
     entry.term = gen;
     if(++entry.weight > env.options->functionDefinitionIntroduction()) {
       introduceDefinitionFor(entry.term);

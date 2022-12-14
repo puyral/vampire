@@ -131,21 +131,21 @@ void DefinitionIntroduction::process(Term *t) {
 
     // only ground terms ?
     // if (gen->getDistinctVars() != 0){
-      // continue;
-    // }
-
-    // only introduced terms ?
-    if (env.signature->getFunction(gen->functor())->skolem() != 1 || gen->getDistinctVars() != 0){
-      continue;
-    }
-
-    // ignore term algebra for subterm efficiency
-    // if(env.signature->getFunction(gen->functor())->termAlgebraCons()) {
     //   continue;
     // }
 
+    // only introduced terms ?
+    // if (env.signature->getFunction(gen->functor())->skolem() != 1 || gen->getDistinctVars() != 0){
+    //   continue;
+    // }
+
+    // ignore term algebra for subterm efficiency
+    if(env.signature->getFunction(gen->functor())->termAlgebraCons()) {
+      continue;
+    }
+
     entry.term = gen;
-    if(++entry.count > env.options->functionDefinitionIntroduction()) {
+    if(++entry.weight > env.options->functionDefinitionIntroduction()) {
       introduceDefinitionFor(entry.term);
       std::swap(entries[i], entries.top());
       entries.pop();
